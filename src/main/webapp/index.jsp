@@ -13,8 +13,10 @@
   </c:if>
   <form action="hogehoge" method="post">
 <!--   	演習１４基本 -->
-    product_id <input type="text" name="id"><br>
-    <button type="submit" formaction = "serch">演習14基本　idで検索ボタン</button>
+    <a href="Serch.jsp">
+    	<button type="button">検索する</button>
+	</a>
+    
     <button type="submit" formaction ="deleteFromID">idで削除ボタン</button>
     
     <a href="deletePd.jsp">

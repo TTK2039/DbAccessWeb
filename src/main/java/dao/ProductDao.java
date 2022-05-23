@@ -11,7 +11,9 @@ import entity.Product;
 
 public class ProductDao {
 
-    private static final String SQL_SELECT_PRODUCTID = "SELECT product_id, product_name, price FROM products WHERE product_id = ?";
+    private static final String SQL_SELECT_PRODUCTID = "SELECT * FROM products WHERE product_id = ?";
+    private static final String SQL_SELECT_PRODUCTNAME = "SELECT * FROM products WHERE product_name = ?";
+    private static final String SQL_SELECT_PRODUCTIDNAME ="SELECT * FROM products WHERE product_id = ? AND product_name = ?";
     private static final String SQL_FIND_ALL = "SELECT * FROM products ORDER BY product_id";
     private static final String SQL_SUM_PRICE = "SELECT sum(price)  FROM products";
     private static final String SQL_INSERT = "INSERT INTO products (product_name, price) VALUES(?, ?)";
@@ -38,6 +40,42 @@ public class ProductDao {
             } else {
                 return null;
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public Product findByProductIDandName(String id, String name) {
+        try (PreparedStatement stmt = connection.prepareStatement(SQL_SELECT_PRODUCTIDNAME)) {
+        	int idInt = Integer.parseInt(id);
+        	stmt.setInt(1, idInt);
+        	stmt.setString(2, name);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new Product(rs.getInt("product_id"), rs.getString("product_name"), rs.getInt("price"));
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public List<Product> findByProductName(String name) {
+        try (PreparedStatement stmt = connection.prepareStatement(SQL_SELECT_PRODUCTNAME)) {
+        	List<Product> list = new ArrayList<>();
+
+            stmt.setString(1, name);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Product pd = new Product(rs.getInt("product_id"), rs.getString("product_name"), rs.getInt("price"));
+                list.add(pd);
+            }
+            return list;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

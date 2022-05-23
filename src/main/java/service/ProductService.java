@@ -21,6 +21,32 @@ public class ProductService {
         return null;
     }
     
+    public List<Product> findProductName(String name) {
+        try (Connection conn = DbUtil.getConnection()) {
+        	ProductDao pdDao = new ProductDao(conn);
+        	List<Product> pd = pdDao.findByProductName(name);
+
+            return pd;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+    
+    public Product findProductIDandName(String id, String name) {
+        try (Connection conn = DbUtil.getConnection()) {
+        	ProductDao pdDao = new ProductDao(conn);
+        	Product pd = pdDao.findByProductIDandName(id, name);
+
+            return pd;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+    
     public List<Product> findAll() {
         try (Connection conn = DbUtil.getConnection()) {
         	ProductDao pdDao = new ProductDao(conn);

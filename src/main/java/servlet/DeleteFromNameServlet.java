@@ -36,7 +36,7 @@ public class DeleteFromNameServlet extends HttpServlet {
             	msg = "削除しました！";
                 // 表示メッセージの受け渡し
                 request.setAttribute("msg", msg);
-                request.getRequestDispatcher("deletePd_result.jsp").forward(request, response);
+                request.getRequestDispatcher("defaultResult.jsp").forward(request, response);
             }else if(a == 0) {
             	msg = "そのnameが存在しません";
             	request.setAttribute("msg", msg);

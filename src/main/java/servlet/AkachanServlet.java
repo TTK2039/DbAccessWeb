@@ -31,7 +31,7 @@ public class AkachanServlet extends HttpServlet {
             request.getRequestDispatcher("insert.jsp").forward(request, response);
         } else {
         	User user = new User(0, name, passStr);
-        	request.setAttribute("user", user);
+//        	request.setAttribute("user", user);
         	UserService userService = new UserService();
             int a = userService.regUser(user);
             if(a == 1) {
